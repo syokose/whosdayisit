@@ -1,11 +1,12 @@
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="home.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
 </head>
 
 <h1 class="title"><center>Who's day is it?</center></h1>
 <h3 class="author"><center>Built by Sachi Yokose & Andy Scheff </center></h3>
-<center><img src="img/03Pre-Ceremony(45of296).JPG" alt="Sachi and Andy's Wedding" style="width:500px;"></center>
+<center><img src="{{ url_for('static', filename='img/03Pre-Ceremony(45of296).JPG') }}" alt="Sachi and Andy's Wedding" style="width:500px;"></center>
 
 <h1 class="whos_day_sentence" ><center>Today is <b><u>{{name}}'s</u></b> day.</center></h1>
 
