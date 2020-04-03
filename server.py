@@ -1,8 +1,7 @@
-from flask import Flask
+from flask import Flask, render_template
 from datetime import date
 
-app = Flask(__name__)
-
+app = Flask(__name__, template_folder='./')
 
 @app.route('/')
 def home():
@@ -14,6 +13,9 @@ def home():
 	return "Today is " + person + "'s day! Have a good one sucker!"
 
 
+@app.route('/template')
+def template():
+	return render_template('home.html', name='afdjkladsfds')
 
 @app.route('/test')
 def test():
