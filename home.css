@@ -1,6 +1,37 @@
+
+
 .title {
-  color: blue;
+	color: blue;
+	font-size: 60px;
+	font-family: Georgia, serif;
+	margin-top: 80px;
+  	margin-bottom: 20px;
+  	margin-right: 80px;
+  	margin-left: 80px;
 }
+
+.author {
+  color: blue;
+  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 80px;
+  margin-left: 80px;
+}
+
+.whos_day_sentence {
+  color: white;
+  font-size: 60px;
+  font-family: Georgia, serif;
+}
+
+.sign_off {
+  color: green;
+  font-size: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 
 /* We're working with the body tag, and so with the WHOLE page */
 body
