@@ -2,6 +2,9 @@ from flask import Flask, render_template
 from datetime import date
 
 app = Flask(__name__)
+app.jinja_env.auto_reload = True
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.run(debug=True, host='0.0.0.0')
 
 @app.route('/')
 def home():
@@ -10,7 +13,9 @@ def home():
 	delta = today - reference_day
 	even = delta.days % 2 == 0
 	person = "Andy" if even else "Sachi"
-	return render_template('home.html', name=person)
+	other_person = "Sachi" if even else "Andy"
+	return render_template('home.html', name=person, other_name=other_person)
+
 
 
 @app.route('/template')

@@ -1,13 +1,12 @@
 
-
 .title {
 	color: blue;
-	font-size: 60px;
+	font-size: 10px;
 	font-family: Georgia, serif;
 	margin-top: 80px;
-  	margin-bottom: 20px;
-  	margin-right: 80px;
-  	margin-left: 80px;
+  margin-bottom: 20px;
+  margin-right: 80px;
+  margin-left: 80px;
 }
 
 .author {
@@ -26,9 +25,16 @@
   font-family: Georgia, serif;
 }
 
+.yesterday_sentence {
+  color: white;
+  font-size: 60px;
+  font-family: Georgia, serif;
+}
+
+
 .sign_off {
   color: green;
-  font-size: 25px;
+  font-size: 40px;
   font-family: Arial, Helvetica, sans-serif;
 }
 

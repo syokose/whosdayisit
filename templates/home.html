@@ -1,19 +1,34 @@
 <html>
 <head>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="{{url_for('static', filename='style.css') }}">
 
 </head>
 
-<h1 class="title"><center>Who's day is it?</center></h1>
-<h3 class="author"><center>Built by Sachi Yokose & Andy Scheff </center></h3>
-<center><img src="{{ url_for('static', filename='img/03Pre-Ceremony(45of296).JPG') }}" alt="Sachi and Andy's Wedding" style="width:500px;"></center>
+<center>
 
-<h1 class="whos_day_sentence" ><center>Today is <b><u>{{name}}'s</u></b> day.</center></h1>
+<h1 class="title">Who's day is it?</h1>
+<h3 class="author">Built by and for Sachi Yokose & Andy Scheff </h3>
+<img src="{{ url_for('static', filename='img/03Pre-Ceremony(45of296).JPG') }}" alt="Sachi and Andy's Wedding" style="width:500px;">
 
-<h2 class="sign_off" ><center>Remember that we love each other and are here for each other.</center></h2>
+<h1 class="whos_day_sentence" >Today is <b><u>{{name}}'s</u></b> day.</h1>
 
+<h2 class="yesterday_sentence" >Yesterday was {{other_name}}'s day.</h2>
 
+<h3 class="rate_sentence" >Help them improve. Rate their day on a scale from 1-10, 10 being the best. </h3>
 
+<form class="rate_form" action="/action_page.php">
+  <label for="attitude">Attitude</label><br>
+  <input type="number" id="attitude_score" name="attitude_score"><br>
+  <label for="cleanliness">Cleanliness</label><br>
+  <input type="number" id="cleanliness_score" name="cleanliness_score"><br>
+  <label for="taste">Taste</label><br>
+  <input type="number" id="taste_score" name="taste_score"><br><br>
+  <input type="submit" value="Submit">
 
+</form>
+
+<h2 class="sign_off" >Remember that we love each other and are here for each other.</h2>
+
+</center>
 
 </html>
