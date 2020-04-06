@@ -14,6 +14,8 @@ POSTGRES_DB = os.getenv("POSTGRES_DB")
 
 app = Flask(__name__)
 app.secret_key = 'lovebirds'
+app.jinja_env.auto_reload = True
+app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 DB_URL = 'postgresql+psycopg2://{user}:{pw}@{url}/{db}'.format(user=POSTGRES_USER,pw=POSTGRES_PW,url=POSTGRES_URL,db=POSTGRES_DB)
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
@@ -95,11 +97,6 @@ def test_read():
     result = str(Rating.query.all())
     return result
 
-
-if __name__ == '__main__':
-    app.jinja_env.auto_reload = True
-    app.config['TEMPLATES_AUTO_RELOAD'] = True
-    app.run(debug=True, host='0.0.0.0')
 
 
 
