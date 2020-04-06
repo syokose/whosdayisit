@@ -23,6 +23,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # silence the deprecation w
 
 db = SQLAlchemy(app)
 
+preferred_pronouns = { "Andy" : "him", "Sachi" : "her"}
+
 class Rating(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     subject = db.Column(db.String, unique=False, nullable=False)
@@ -65,17 +67,18 @@ def get_even():
     even = delta.days % 2 == 0
     return even
 
+def get_pronoun(person):
+    return preferred_pronouns[person]
+
 def get_person():
     even = get_even()
     person = "Andy" if even else "Sachi"
-    pronoun = "him" if even else "her"
-    return (person, pronoun)
+    return (person, get_pronoun(person))
 
 def get_other_person():
     even = get_even()
     other_person = "Sachi" if even else "Andy"
-    other_pronoun = "her" if even else "him"
-    return (other_person, other_pronoun)
+    return (other_person, get_pronoun(other_person))
 
 def get_yesterday():
     today = date.today()
