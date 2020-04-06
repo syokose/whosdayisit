@@ -5,6 +5,15 @@
 </head>
 
 <center>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 
 <h1 class="title">Who's day is it?</h1>
 <h3 class="author">Built by and for Sachi Yokose & Andy Scheff </h3>
@@ -16,15 +25,25 @@
 
 <h3 class="rate_sentence" >Help them improve. Rate their day on a scale from 1-10, 10 being the best. </h3>
 
-<form class="rate_form" action="/action_page.php">
-  <label for="attitude">Attitude</label><br>
-  <input type="number" id="attitude_score" name="attitude_score"><br>
-  <label for="cleanliness">Cleanliness</label><br>
-  <input type="number" id="cleanliness_score" name="cleanliness_score"><br>
-  <label for="taste">Taste</label><br>
-  <input type="number" id="taste_score" name="taste_score"><br><br>
-  <input type="submit" value="Submit">
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 
+{% from "_formhelpers.html" import render_field %}
+<form method=post>
+  <dl>
+    {{ render_field(form.attitude_score) }}
+    {{ render_field(form.cleanliness_score) }}
+    {{ render_field(form.taste_score) }}
+    {{ render_field(form.comment) }}
+  </dl>
+  <p><input type=submit value="Submit Rating">
 </form>
 
 <h2 class="sign_off" >Remember that we love each other and are here for each other.</h2>
