@@ -54,9 +54,9 @@ def home():
         db.session.commit()
         flash('Thanks for helping us improve!')
         return redirect(url_for('home'))
-    person = get_person()
-    other_person = get_other_person()
-    return render_template('home.html', name=person, other_name=other_person, form=form)
+    person, pronoun = get_person()
+    other_person, other_pronoun = get_other_person()
+    return render_template('home.html', name=person, other_name=other_person, form=form, other_pronoun=other_pronoun)
 
 def get_even():
     today = date.today()
@@ -68,29 +68,19 @@ def get_even():
 def get_person():
     even = get_even()
     person = "Andy" if even else "Sachi"
-    return person
+    pronoun = "him" if even else "her"
+    return (person, pronoun)
 
 def get_other_person():
     even = get_even()
     other_person = "Sachi" if even else "Andy"
-    return other_person
+    other_pronoun = "her" if even else "him"
+    return (other_person, other_pronoun)
 
 def get_yesterday():
     today = date.today()
     yesterday = today - timedelta(days=1)
     return yesterday
-
-@app.route('/', methods=['POST'])
-def handle_data():
-    print("form submit")
-    attitude_score = request.form['attitude_score']
-    cleanliness_score = request.form['cleanliness_score']
-    taste_score = request.form['taste_score']
-    comment=request.form['comment']
-    print(attitude_score, cleanliness_score, taste_score, comment)
-    db.session.add(Rating(subject=get_other_person(), day=get_yesterday(),attitude_score=attitude_score, cleanliness_score=cleanliness_score, taste_score=taste_score, comment=comment))
-    db.session.commit()
-    return home()
 
 @app.route('/test_read')
 def test_read():
