@@ -38,6 +38,12 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.error {
+  color: red;
+  font-size: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 
 /* We're working with the body tag, and so with the WHOLE page */
 body
