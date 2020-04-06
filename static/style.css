@@ -1,19 +1,19 @@
 
 .title {
-	color: blue;
-	font-size: 60px;
-	font-family: Georgia, serif;
-	margin-top: 80px;
-  margin-bottom: 20px;
+	color: #1c2e4a;
+	font-size: 100px;
+	font-family: Lobster;
+	margin-top: 20px;
+  margin-bottom: 10px;
   margin-right: 80px;
   margin-left: 80px;
 }
 
 .author {
-  color: blue;
+  color: #1c2e4a;
   font-size: 15px;
   font-family: Arial, Helvetica, sans-serif;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-bottom: 20px;
   margin-right: 80px;
   margin-left: 80px;
@@ -21,20 +21,34 @@
 
 .whos_day_sentence {
   color: white;
-  font-size: 60px;
-  font-family: Georgia, serif;
+  font-size: 80px;
+  font-family: Lobster;
 }
 
 .yesterday_sentence {
   color: white;
   font-size: 60px;
-  font-family: Georgia, serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
+.rate_sentence {
+  color: white;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.flashes {
+  color: #9cc0e7;
+  background-color: white;
+  font-size: 20spx;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 
 .sign_off {
-  color: green;
-  font-size: 40px;
+  color: #1c2e4a;
+  font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
