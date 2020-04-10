@@ -1,0 +1,38 @@
+<html>
+<head>
+<link rel="stylesheet" href="{{url_for('static', filename='style.css') }}">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lobster" />
+
+</head>
+
+<center>
+
+<h1 class="title">Our Ratings</h1>
+
+<table style="width:100%">
+
+<tr>
+  <th> Ratee </th>
+  <th> Date </th>
+  <th> Attitude </th>
+  <th> Cleanliness </th>
+  <th> Taste </th>
+  <th> Comment </th>
+</tr>
+
+{% for r in results %}
+  <tr>
+    <td> {{r.subject}}</td> 
+    <td> {{r.day}}</td>
+    <td> {{r.attitude_score}}</td>
+    <td> {{r.cleanliness_score}}</td>
+    <td> {{r.taste_score}}</td>
+    <td> {{r.comment}}</td>
+  </tr>
+{% endfor %}
+
+</table>
+
+</center>
+
+</html>

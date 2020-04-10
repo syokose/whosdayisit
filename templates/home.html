@@ -18,7 +18,8 @@
 
 <h1 class="title">Who's day is it?</h1>
 <h3 class="author">Built by and for Sachi Yokose & Andy Scheff </h3>
-<img src="{{ url_for('static', filename='img/03Pre-Ceremony(45of296).JPG') }}" alt="Sachi and Andy's Wedding" style="width:500px;">
+  
+<img src="{{ url_for('static', filename='img/'+image) }}" alt="person's picture" style="height:300px;">
 
 <h1 class="whos_day_sentence" >Today is {{name}}'s day.</h1>
 

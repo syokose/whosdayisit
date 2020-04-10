@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, redirect, request, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func
 from datetime import date, timedelta
 from dotenv import load_dotenv
 from wtforms import Form, IntegerField, TextAreaField, validators
@@ -24,6 +25,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # silence the deprecation w
 db = SQLAlchemy(app)
 
 preferred_pronouns = { "Andy" : "him", "Sachi" : "her"}
+person_image = {"Andy" : "andy.jpg", "Sachi" : "sachi.jpg"}
 
 class Rating(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -47,7 +49,7 @@ class RatingForm(Form):
 def home():
     form = RatingForm(request.form)
     if request.method == 'POST' and form.validate():
-        db.session.add(Rating(subject=get_other_person(),
+        db.session.add(Rating(subject=get_other_person()[0],
                               day=get_yesterday(),
                               attitude_score=form.attitude_score.data, 
                               cleanliness_score=form.cleanliness_score.data, 
@@ -56,9 +58,9 @@ def home():
         db.session.commit()
         flash('Thanks for helping us improve!')
         return redirect(url_for('home'))
-    person, pronoun = get_person()
+    person, pronoun, image_url = get_person()
     other_person, other_pronoun = get_other_person()
-    return render_template('home.html', name=person, other_name=other_person, form=form, other_pronoun=other_pronoun)
+    return render_template('home.html', name=person, other_name=other_person, form=form, other_pronoun=other_pronoun, image=image_url)
 
 def get_even():
     today = date.today()
@@ -70,10 +72,13 @@ def get_even():
 def get_pronoun(person):
     return preferred_pronouns[person]
 
+def get_image(person):
+    return person_image[person]
+
 def get_person():
     even = get_even()
     person = "Andy" if even else "Sachi"
-    return (person, get_pronoun(person))
+    return (person, get_pronoun(person), get_image(person))
 
 def get_other_person():
     even = get_even()
@@ -85,12 +90,12 @@ def get_yesterday():
     yesterday = today - timedelta(days=1)
     return yesterday
 
-@app.route('/test_read')
-def test_read():
-    result = str(Rating.query.all())
-    return result
-
-
+@app.route('/rating')
+def rating():
+    results = Rating.query.all()
+    averages = db.session.query(Rating.subject, func.avg(Rating.attitude_score), func.avg(Rating.cleanliness_score), func.avg(Rating.taste_score)).group_by(Rating.subject).all()
+    print(averages)
+    return render_template('rating.html', results=results, averages=averages)
 
 
 
