@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template, redirect, request, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
+from sqlalchemy.orm import column_property
 from datetime import date, timedelta
 from dotenv import load_dotenv
 from wtforms import Form, IntegerField, TextAreaField, validators
@@ -34,6 +35,7 @@ class Rating(db.Model):
     attitude_score = db.Column(db.Integer)
     cleanliness_score = db.Column(db.Integer)
     taste_score = db.Column(db.Integer)
+    day_average = column_property((attitude_score + cleanliness_score + taste_score)/3)
     comment = db.Column(db.String)
 
     def __repr__(self):
@@ -93,7 +95,7 @@ def get_yesterday():
 @app.route('/rating')
 def rating():
     results = Rating.query.all()
-    averages = db.session.query(Rating.subject, func.avg(Rating.attitude_score), func.avg(Rating.cleanliness_score), func.avg(Rating.taste_score)).group_by(Rating.subject).all()
+    averages = db.session.query(Rating.subject, func.avg(Rating.attitude_score), func.avg(Rating.cleanliness_score), func.avg(Rating.taste_score), func.avg(Rating.day_average)).group_by(Rating.subject).all()
     print(averages)
     return render_template('rating.html', results=results, averages=averages)
 
