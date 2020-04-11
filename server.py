@@ -2,22 +2,17 @@ import os
 from flask import Flask, render_template, redirect, request, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
-from sqlalchemy.orm import column_property
 from datetime import date, timedelta
 from dotenv import load_dotenv
 from wtforms import Form, IntegerField, TextAreaField, validators
 
-load_dotenv('.env.dev')
+load_dotenv('.env.dev', override=True)
 
-
+# Check if there is a database url provided by Heroku
+# If not, piece the database url together using local credentials
 DB_URL = os.getenv("DATABASE_URL", None)
-
 if not DB_URL:
-    POSTGRES_URL = os.getenv("POSTGRES_URL")
-    POSTGRES_USER = os.getenv("POSTGRES_USER")
-    POSTGRES_PW = os.getenv("POSTGRES_PW")
-    POSTGRES_DB = os.getenv("POSTGRES_DB")
-    DB_URL = 'postgres://{user}:{pw}@{url}/{db}'.format(user=POSTGRES_USER,pw=POSTGRES_PW,url=POSTGRES_URL,db=POSTGRES_DB)
+    DB_URL = os.getenv("DEV_POSTGRES_URL")
 
 app = Flask(__name__)
 app.secret_key = 'lovebirds'
@@ -32,18 +27,7 @@ db = SQLAlchemy(app)
 preferred_pronouns = { "Andy" : "him", "Sachi" : "her"}
 person_image = {"Andy" : "andy.jpg", "Sachi" : "sachi.jpg"}
 
-class Rating(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    subject = db.Column(db.String, unique=False, nullable=False)
-    day = db.Column(db.Date, nullable=False)
-    attitude_score = db.Column(db.Integer)
-    cleanliness_score = db.Column(db.Integer)
-    taste_score = db.Column(db.Integer)
-    day_average = column_property((attitude_score + cleanliness_score + taste_score)/3)
-    comment = db.Column(db.String)
-
-    def __repr__(self):
-        return 'Rating(subect='+self.subject+', day='+str(self.day)+ ')'
+from models import Rating
 
 class RatingForm(Form):
     attitude_score = IntegerField('Attitude', [validators.NumberRange(min=0, max=10)])
