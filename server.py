@@ -9,17 +9,21 @@ from wtforms import Form, IntegerField, TextAreaField, validators
 
 load_dotenv('.env.dev')
 
-POSTGRES_URL = os.getenv("POSTGRES_URL")
-POSTGRES_USER = os.getenv("POSTGRES_USER")
-POSTGRES_PW = os.getenv("POSTGRES_PW")
-POSTGRES_DB = os.getenv("POSTGRES_DB")
+
+DB_URL = os.getenv("DATABASE_URL")
+
+if not DB_URL:
+    POSTGRES_URL = os.getenv("POSTGRES_URL")
+    POSTGRES_USER = os.getenv("POSTGRES_USER")
+    POSTGRES_PW = os.getenv("POSTGRES_PW")
+    POSTGRES_DB = os.getenv("POSTGRES_DB")
+    DB_URL = 'postgres://{user}:{pw}@{url}/{db}'.format(user=POSTGRES_USER,pw=POSTGRES_PW,url=POSTGRES_URL,db=POSTGRES_DB)
 
 app = Flask(__name__)
 app.secret_key = 'lovebirds'
 app.jinja_env.auto_reload = True
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
-DB_URL = 'postgresql+psycopg2://{user}:{pw}@{url}/{db}'.format(user=POSTGRES_USER,pw=POSTGRES_PW,url=POSTGRES_URL,db=POSTGRES_DB)
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # silence the deprecation warning
 
