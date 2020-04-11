@@ -10,7 +10,7 @@ from wtforms import Form, IntegerField, TextAreaField, validators
 load_dotenv('.env.dev')
 
 
-DB_URL = os.getenv("DATABASE_URL")
+DB_URL = os.getenv("DATABASE_URL", None)
 
 if not DB_URL:
     POSTGRES_URL = os.getenv("POSTGRES_URL")
