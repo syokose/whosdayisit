@@ -54,8 +54,10 @@ def home():
 
 def get_even():
     today = date.today()
+    print("abcdef today is: " + str(today))
     reference_day = date(2020, 3, 28)
     delta = today - reference_day
+    print("abcdef delta is: " + str(delta))
     even = delta.days % 2 == 0
     return even
 
