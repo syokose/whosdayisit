@@ -5,6 +5,7 @@ from sqlalchemy import func
 from datetime import date, timedelta
 from dotenv import load_dotenv
 from wtforms import Form, IntegerField, TextAreaField, validators
+import time
 
 load_dotenv('.env.dev', override=True)
 
@@ -26,6 +27,8 @@ db = SQLAlchemy(app)
 
 preferred_pronouns = { "Andy" : "him", "Sachi" : "her"}
 person_image = {"Andy" : "andy.jpg", "Sachi" : "sachi.jpg"}
+
+print("abcdef " + str(time.tzname))
 
 from models import Rating
 
