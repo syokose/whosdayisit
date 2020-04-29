@@ -28,8 +28,6 @@ db = SQLAlchemy(app)
 preferred_pronouns = { "Andy" : "him", "Sachi" : "her"}
 person_image = {"Andy" : "andy.jpg", "Sachi" : "sachi.jpg"}
 
-print("abcdef " + str(time.tzname))
-
 from models import Rating
 
 class RatingForm(Form):
@@ -57,10 +55,8 @@ def home():
 
 def get_even():
     today = date.today()
-    print("abcdef today is: " + str(today))
     reference_day = date(2020, 3, 28)
     delta = today - reference_day
-    print("abcdef delta is: " + str(delta))
     even = delta.days % 2 == 0
     return even
 
@@ -89,7 +85,6 @@ def get_yesterday():
 def rating():
     results = Rating.query.all()
     averages = db.session.query(Rating.subject, func.avg(Rating.attitude_score), func.avg(Rating.cleanliness_score), func.avg(Rating.taste_score), func.avg(Rating.day_average)).group_by(Rating.subject).all()
-    print(averages)
     return render_template('rating.html', results=results, averages=averages)
 
 
